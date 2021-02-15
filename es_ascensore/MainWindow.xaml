@@ -18,6 +18,9 @@
             <Button x:Name="btnPrenota_2" Content="prenota" HorizontalAlignment="Left" Margin="223,83,0,0" VerticalAlignment="Top" Width="80" Height="48" Click="btnPrenota_Click"/>
             <Button x:Name="btnPrenota_1" Content="prenota" HorizontalAlignment="Left" Margin="223,256,0,0" VerticalAlignment="Top" Width="80" Height="48" Click="btnPrenota_Click"/>
             <Button x:Name="btnPrenota_0" Content="prenota" HorizontalAlignment="Left" Margin="223,442,0,0" VerticalAlignment="Top" Width="80" Height="48" Click="btnPrenota_Click"/>
+            <Label x:Name="lbl2" Content="0" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Height="40" Width="44" Background="White"/>
+            <Label x:Name="lbl1" Content="0" HorizontalAlignment="Left" Margin="10,238,0,0" VerticalAlignment="Top" Height="40" Width="44" Background="White"/>
+            <Label x:Name="lbl0" Content="0" HorizontalAlignment="Left" Margin="10,424,0,0" VerticalAlignment="Top" Height="40" Width="44" Background="White"/>
         </Grid>
 
     </Grid>

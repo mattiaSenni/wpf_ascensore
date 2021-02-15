@@ -1,0 +1,15 @@
+C:\Users\matti\Desktop\es_ascensore\es_ascensore\bin\Debug\es_ascensore.exe.config
+C:\Users\matti\Desktop\es_ascensore\es_ascensore\bin\Debug\es_ascensore.exe
+C:\Users\matti\Desktop\es_ascensore\es_ascensore\bin\Debug\es_ascensore.pdb
+C:\Users\matti\Desktop\es_ascensore\es_ascensore\obj\Debug\es_ascensore.csprojAssemblyReference.cache
+C:\Users\matti\Desktop\es_ascensore\es_ascensore\obj\Debug\MainWindow.g.cs
+C:\Users\matti\Desktop\es_ascensore\es_ascensore\obj\Debug\App.g.cs
+C:\Users\matti\Desktop\es_ascensore\es_ascensore\obj\Debug\es_ascensore_MarkupCompile.cache
+C:\Users\matti\Desktop\es_ascensore\es_ascensore\obj\Debug\es_ascensore_MarkupCompile.lref
+C:\Users\matti\Desktop\es_ascensore\es_ascensore\obj\Debug\MainWindow.baml
+C:\Users\matti\Desktop\es_ascensore\es_ascensore\obj\Debug\es_ascensore.g.resources
+C:\Users\matti\Desktop\es_ascensore\es_ascensore\obj\Debug\es_ascensore.Properties.Resources.resources
+C:\Users\matti\Desktop\es_ascensore\es_ascensore\obj\Debug\es_ascensore.csproj.GenerateResource.cache
+C:\Users\matti\Desktop\es_ascensore\es_ascensore\obj\Debug\es_ascensore.csproj.CoreCompileInputs.cache
+C:\Users\matti\Desktop\es_ascensore\es_ascensore\obj\Debug\es_ascensore.exe
+C:\Users\matti\Desktop\es_ascensore\es_ascensore\obj\Debug\es_ascensore.pdb

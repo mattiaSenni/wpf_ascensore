@@ -34,19 +34,43 @@ namespace es_ascensore
             }
             set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
                     throw new Exception("id non valido");
                 }
-                _id = Id;
+                _id = value;
             }
         }
 
-        public Piano(int nmPersone, int id)
+        private int _marginTop;
+        public int MarginTop
         {
-            Persone = new List<Persona>();
-            NumMaxPersone = nmPersone;
-            Id = id;
+            get
+            {
+                return _marginTop;
+            }
+            set
+            {
+                if (value < 0)
+                    throw new Exception();
+                _marginTop = value;
+            }
+        }
+
+        public Piano(int nmPersone, int id, int mt)
+        {
+            try
+            {
+                Persone = new List<Persona>();
+                NumMaxPersone = nmPersone;
+                Id = id;
+                MarginTop = mt;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public void AggiungiPersona(Persona p)

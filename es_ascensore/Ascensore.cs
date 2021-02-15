@@ -17,7 +17,7 @@ namespace es_ascensore
             }
             set
             {
-                if (value <= 0)
+                if (value < 0)
                     throw new Exception("numero di piano non valido");
                 _piano = value;
             }
@@ -42,16 +42,18 @@ namespace es_ascensore
         public List<Persona> Persone { get; set; }
         public Queue<int> Fila { get; set; }
         private Semaphore _pool { get; set; }
+        public bool StaAndando { get; private set; }
 
         public Ascensore(int maxPersone)
         {
             Piano = 0;
             MaxPersone = maxPersone;
-            Piani = new List<Piano>() { new Piano(5, 0), new Piano(5, 1), new Piano(5, 2) };
+            Piani = new List<Piano>() { new Piano(5, 0, 385), new Piano(5, 1, 200), new Piano(5, 2, 5) };
             Persone = new List<Persona>();
             Fila = new Queue<int>();
             _pool = new Semaphore(0, 1);
             _pool.Release(1);
+            StaAndando = false;
         }
 
         public Piano Vai()
@@ -60,7 +62,9 @@ namespace es_ascensore
             {
                 Piano toReturn = GetPiano(Fila.Peek());
                 Piano = Dequeue(); //sezione critica : il dequeue
+                StaAndando = true;
                 return toReturn;
+                
             }
             catch (Exception ex)
             {
@@ -68,12 +72,14 @@ namespace es_ascensore
                 throw ex;
             }
         }
-        private void Arrivato()
+        public void Arrivato()
         {
             Scendi(Piano);
             Sali(Piani[Piano].Persone);
+            if (Count() == 0)
+                StaAndando = false;
         }
-        private bool Continua()
+        public bool Continua()
         {
             if (Count() > 0)
                 return true;
