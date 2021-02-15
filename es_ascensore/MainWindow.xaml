@@ -1,0 +1,24 @@
+﻿<Window x:Class="es_ascensore.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:es_ascensore"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="658.5" Width="800">
+    <Grid>
+        <Grid x:Name="grdPiano" HorizontalAlignment="Left" Height="562" Margin="99,10,0,0" VerticalAlignment="Top" Width="541">
+            <Grid.Background>
+                <ImageBrush ImageSource="img/parete.png"/>
+            </Grid.Background>
+            <Grid x:Name="grdAscensore" HorizontalAlignment="Left" Height="153" Margin="415,385,0,0" VerticalAlignment="Top" Width="116">
+                <Image HorizontalAlignment="Left" Width="103" Source="img/ascensore.png" Margin="10,0,0,0"/>
+                <Label x:Name="lblNumPersone" Content="0" HorizontalAlignment="Left" Height="45" Margin="41,81,0,0" VerticalAlignment="Top" Width="33"/>
+            </Grid>
+            <Button x:Name="btnPrenota_2" Content="prenota" HorizontalAlignment="Left" Margin="223,83,0,0" VerticalAlignment="Top" Width="80" Height="48" Click="btnPrenota_Click"/>
+            <Button x:Name="btnPrenota_1" Content="prenota" HorizontalAlignment="Left" Margin="223,256,0,0" VerticalAlignment="Top" Width="80" Height="48" Click="btnPrenota_Click"/>
+            <Button x:Name="btnPrenota_0" Content="prenota" HorizontalAlignment="Left" Margin="223,442,0,0" VerticalAlignment="Top" Width="80" Height="48" Click="btnPrenota_Click"/>
+        </Grid>
+
+    </Grid>
+</Window>
