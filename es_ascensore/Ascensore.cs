@@ -39,30 +39,32 @@ namespace es_ascensore
         }
 
         public List<Piano> Piani { get; set; }
-        public List<Persona> Persone { get; set; }
-        public Queue<int> Fila { get; set; }
+        public int Persone { get; set; }
+        //public Queue<int> Fila { get; set; }
+        public List<int> Fila { get; set; }
         private Semaphore _pool { get; set; }
-        public bool StaAndando { get; private set; }
+        public bool AspettaPrenotazione { get; private set; }
 
         public Ascensore(int maxPersone)
         {
             Piano = 0;
             MaxPersone = maxPersone;
-            Piani = new List<Piano>() { new Piano(5, 0, 385), new Piano(5, 1, 200), new Piano(5, 2, 5) };
-            Persone = new List<Persona>();
-            Fila = new Queue<int>();
+            Piani = new List<Piano>() { new Piano(5, 0, 464), new Piano(5, 1, 365), new Piano(5, 2, 250), new Piano(5, 3, 135), new Piano(5, 4, 15) };
+            Persone = 0;
+            //Fila = new Queue<int>();
+            Fila = new List<int>();
             _pool = new Semaphore(0, 1);
             _pool.Release(1);
-            StaAndando = false;
+            AspettaPrenotazione = false;
         }
 
         public Piano Vai()
         {
             try
             {
-                Piano toReturn = GetPiano(Fila.Peek());
-                Piano = Dequeue(); //sezione critica : il dequeue
-                StaAndando = true;
+                Piano toReturn = GetPiano(Peek());
+                Piano = Pop(); //sezione critica : il dequeue
+                
                 return toReturn;
                 
             }
@@ -72,12 +74,16 @@ namespace es_ascensore
                 throw ex;
             }
         }
-        public void Arrivato()
+        public int Arrivato()
         {
             Scendi(Piano);
-            Sali(Piani[Piano].Persone);
-            if (Count() == 0)
-                StaAndando = false;
+            int salite = Sali();
+            if(salite > 0)
+            {
+                //sono salite persone
+                AspettaPrenotazione = true;
+            }
+            return salite;
         }
         public bool Continua()
         {
@@ -87,64 +93,46 @@ namespace es_ascensore
         }
         private void Scendi(int numPiano)
         {
-            //faccio scendere le persone
-            foreach (Persona p in Persone)
+            if(Persone > 0)
             {
-                if (p.Destinazione == numPiano)
+                Persone--;
+            }
+                
+        }
+        public int QuantiScendono()
+        {
+            if (Persone > 0)
+                return 1;
+            else
+                return 0;
+        }
+        private int Sali()
+        {
+            int pSalite = 0;
+            for(int i = 0; i < Piani[Piano].NPersone; i++)
+            {
+                if (Persone + pSalite < MaxPersone)
                 {
-                    //la faccio scendere
-                    Persone.Remove(p); //Persona implementa l'Equals
+                    //può salire
+                    pSalite++;
                 }
             }
-        }
-        public int QuantiScendono(int numPiano)
-        {
-            int count = 0;
-            foreach (Persona p in Persone)
+            for(int i = 0; i < pSalite; i++)
             {
-                if (p.Destinazione == numPiano)
-                {
-                    count++;
-                }
+                Piani[Piano].NPersone--;
+                Persone++;
             }
-            return count;
-        }
-        public int QuantiSalgono(List<Persona>personas)
-        {
-            int personeCheNonSalgono = 0;
-
-            foreach (Persona p in personas)
-            {
-                if (Fila.Count >= MaxPersone)
-                {
-                    personeCheNonSalgono++;
-                }                    
-            }
-
-            return personeCheNonSalgono;
-        }
-        private int Sali(List<Persona> personas)
-        {
-            //la destinazione la chiedo appena creo la persona
-            //faccio salire le persone
-            int personeCheNonSalgono = 0;
-            
-            foreach (Persona p in personas)
-            {
-                if (Fila.Count < MaxPersone)
-                {                    
-                    Enqueue(p.Destinazione);
-                }
-                else
-                    personeCheNonSalgono++;
-            }
-
-            return personeCheNonSalgono;
-
+            return pSalite;
         }
         public void Prenota(int piano)
         {
-            Enqueue(piano);
+            Add(piano);
+            AspettaPrenotazione = true;
+        }
+        public void Tastierino(int piano)
+        {
+            PushFirst(piano);
+            AspettaPrenotazione = false;
         }
 
         private Piano GetPiano(int n)
@@ -158,29 +146,65 @@ namespace es_ascensore
             }
             throw new Exception();
         }
-
-        public int Dequeue()
+        public int Pop()
         {
             _pool.WaitOne();
-            int num = Fila.Dequeue();
+            int el = Fila[0];
+            Fila.RemoveAt(0);
             _pool.Release(1);
-            return num;
+            return el;
         }
-        public void Enqueue(int piano)
+
+        public void Add(int piano)
         {
             _pool.WaitOne();
             if(!Fila.Contains(piano))
             {
-                Fila.Enqueue(piano);
+                Fila.Add(piano);
+            }
+            _pool.Release(1);
+        }
+        public void PushFirst(int piano)
+        {
+            _pool.WaitOne();
+            if(!Fila.Contains(piano))
+            {
+                List<int> n = new List<int>();
+                n.Add(piano);
+                foreach(int i in Fila)
+                {
+                    n.Add(i);
+                }
+                Fila.Clear();
+                foreach(int i in n)
+                {
+                    Fila.Add(i);
+                }
             }
             _pool.Release(1);
         }
         public int Count()
         {
             _pool.WaitOne();
-            int res = Fila.Count;
+            int num = Fila.Count;
             _pool.Release(1);
-            return res;
+            return num;
         }
+        public int Peek()
+        {
+            try
+            {
+                _pool.WaitOne();
+                int p = Fila[0];
+                _pool.Release(1);
+                return p;
+            }
+            catch ( Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
     }
 }

@@ -11,18 +11,15 @@
   <Class Name="es_ascensore.Piano">
     <Position X="1.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAgAAgABAAIAAAAAAAAAAAEQAAAAgAAA=</HashCode>
+      <HashCode>CAACAEAAAAAAAgAAiABAAIAAAAAAAAAAAAQACAAgAAA=</HashCode>
       <FileName>Piano.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Field Name="Persone" />
-    </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="es_ascensore.Ascensore">
     <Position X="3.25" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BABAAAIgTBCAAAIEAAAUAAQAEEAABAAAIEAAAAAAAEA=</HashCode>
+      <HashCode>BAIQAAIATBCEAAIEAAAUAAQDEECAAAAAIEAAAAAAAEA=</HashCode>
       <FileName>Ascensore.cs</FileName>
     </TypeIdentifier>
   </Class>

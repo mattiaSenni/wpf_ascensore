@@ -7,7 +7,22 @@ namespace es_ascensore
 {
     public class Piano : IEquitableNPiano, IEquatable<Piano>
     {
-        public List<Persona> Persone;
+        private int _nPersone;
+        public int NPersone
+        {
+            get
+            {
+                return _nPersone;
+            }
+            set
+            {
+                if(value < 0)
+                {
+                    throw new Exception();
+                }
+                _nPersone = value;
+            }
+        }
         private int _numMaxPersone;
         public int NumMaxPersone
         {
@@ -61,7 +76,7 @@ namespace es_ascensore
         {
             try
             {
-                Persone = new List<Persona>();
+                NPersone = 0;
                 NumMaxPersone = nmPersone;
                 Id = id;
                 MarginTop = mt;
@@ -73,9 +88,9 @@ namespace es_ascensore
             }
         }
 
-        public void AggiungiPersona(Persona p)
+        public void AggiungiPersona()
         {
-            Persone.Add(p);
+            NPersone++;
         }
 
         public bool GetEquals(int nPiano)

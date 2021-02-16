@@ -24,10 +24,12 @@ namespace es_ascensore
         public MainWindow()
         {
             InitializeComponent();
-            Ascensore = new Ascensore(3);
+            Ascensore = new Ascensore(1);
+            muovi = new Thread(new ThreadStart(MuoviAscensore));
         }
         Ascensore Ascensore;
         Piano Destinazione;
+        Thread muovi;
 
 
         private void btnPrenota_Click(object sender, RoutedEventArgs e)
@@ -35,14 +37,13 @@ namespace es_ascensore
             //riconosco il piano in base al nome del bottone
             Button myButton = (Button)sender;
             int piano = int.Parse(myButton.Name.Split('_')[1]);            
-            Ascensore.Prenota(piano);
-            //MessageBox.Show(Ascensore.Fila.Peek().ToString());
-            if (!Ascensore.StaAndando)//controllo se l'ascensore sta andando
+            if(Ascensore.Piani[piano].NPersone > 0)
             {
-                //MessageBox.Show("parti");
-                Destinazione = Ascensore.Vai();//se non sta andando la faccio partire
-                Thread muovi = new Thread(new ThreadStart(MuoviAscensore));
-                muovi.Start();
+                Ascensore.Prenota(piano);
+                if(!Ascensore.AspettaPrenotazione || Ascensore.Persone == 0)
+                {
+                    Muovi();
+                }
             }
         }
 
@@ -50,24 +51,75 @@ namespace es_ascensore
         {
             //devo capire se scende o se sale
             //TODO : Animazione
+            int pSalite;
             this.Dispatcher.BeginInvoke(new Action(() =>
             {
                 Thickness t = grdAscensore.Margin;
                 grdAscensore.Margin = new Thickness(t.Left, Destinazione.MarginTop, 0, 0);
-                Ascensore.Arrivato();
-                lbl2.Content = Ascensore.Piani[2].Persone.Count;
-                lbl1.Content = Ascensore.Piani[1].Persone.Count;
-                lbl0.Content = Ascensore.Piani[0].Persone.Count;
-                lblNumPersone.Content = Ascensore.Persone.Count;
+                pSalite = Ascensore.Arrivato();
+                lbl4.Content = Ascensore.Piani[4].NPersone;
+                lbl3.Content = Ascensore.Piani[3].NPersone;
+                lbl2.Content = Ascensore.Piani[2].NPersone;
+                lbl1.Content = Ascensore.Piani[1].NPersone;
+                lbl0.Content = Ascensore.Piani[0].NPersone;
+                lblNumPersone.Content = Ascensore.Persone;
             }));
-            
 
-            //assegno l'effettivo numero di persone
-            
-            if (Ascensore.Continua())
+            if(Ascensore.Count() > 0 && !Ascensore.AspettaPrenotazione)
             {
+                try
+                {
+                    Destinazione = Ascensore.Vai();
+                    MuoviAscensore();
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show("zeru tituli");
+                }
+            }
+            
+        }
+
+
+        private void btnAggiungiPersona_Click(object sender, RoutedEventArgs e)
+        {
+            //riconosco il piano dal nome di sender
+            Button b = (Button)sender;
+            int piano = int.Parse(b.Name.Split('_')[1]);
+            Ascensore.Piani[piano].AggiungiPersona();
+            //aggiorno tutti i contatori
+            lbl4.Content = Ascensore.Piani[4].NPersone;
+            lbl3.Content = Ascensore.Piani[3].NPersone;
+            lbl2.Content = Ascensore.Piani[2].NPersone;
+            lbl1.Content = Ascensore.Piani[1].NPersone;
+            lbl0.Content = Ascensore.Piani[0].NPersone;
+            //TODO : fare l'animazione dell'aggiunta della persona
+        }
+
+        private void btnTastierino_Click(object sender, RoutedEventArgs e)
+        {
+            if(Ascensore.Persone > 0)
+            {
+                Button b = (Button)sender;
+                int piano = int.Parse(b.Name.Split('_')[1]);
+                Ascensore.Tastierino(piano);
+                //MessageBox.Show(Ascensore.Fila[0].ToString());
+                Muovi();
+            }
+        }
+
+        private void Muovi()
+        {
+            
+            //MessageBox.Show(muovi.IsAlive.ToString());
+            if(!muovi.IsAlive)
+            {
+                
+                //il thread è fermo, lo faccio ripartire
                 Destinazione = Ascensore.Vai();
-                MuoviAscensore();
+                muovi = new Thread(new ThreadStart(MuoviAscensore));
+                muovi.Start();
             }
         }
     }

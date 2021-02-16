@@ -6,22 +6,36 @@
         xmlns:local="clr-namespace:es_ascensore"
         mc:Ignorable="d"
         Title="MainWindow" Height="658.5" Width="800">
-    <Grid>
-        <Grid x:Name="grdPiano" HorizontalAlignment="Left" Height="562" Margin="99,10,0,0" VerticalAlignment="Top" Width="541">
+    <Grid RenderTransformOrigin="0.487,0.493">
+        <Grid x:Name="grdPiano" HorizontalAlignment="Left" Height="562" Margin="10,10,0,0" VerticalAlignment="Top" Width="541" RenderTransformOrigin="0.481,0.5">
             <Grid.Background>
                 <ImageBrush ImageSource="img/parete.png"/>
             </Grid.Background>
-            <Grid x:Name="grdAscensore" HorizontalAlignment="Left" Height="153" Margin="415,385,0,0" VerticalAlignment="Top" Width="116">
-                <Image HorizontalAlignment="Left" Width="103" Source="img/ascensore.png" Margin="10,0,0,0"/>
-                <Label x:Name="lblNumPersone" Content="0" HorizontalAlignment="Left" Height="45" Margin="41,81,0,0" VerticalAlignment="Top" Width="33"/>
+            <Grid x:Name="grdAscensore" HorizontalAlignment="Left" Height="80" Margin="434,464,0,0" VerticalAlignment="Top" Width="97">
+                <Image HorizontalAlignment="Left" Width="87" Source="img/ascensore.png"/>
+                <Label x:Name="lblNumPersone" Content="0" HorizontalAlignment="Left" Height="26" Margin="30,17,0,0" VerticalAlignment="Top" Width="20"/>
             </Grid>
-            <Button x:Name="btnPrenota_2" Content="prenota" HorizontalAlignment="Left" Margin="223,83,0,0" VerticalAlignment="Top" Width="80" Height="48" Click="btnPrenota_Click"/>
-            <Button x:Name="btnPrenota_1" Content="prenota" HorizontalAlignment="Left" Margin="223,256,0,0" VerticalAlignment="Top" Width="80" Height="48" Click="btnPrenota_Click"/>
-            <Button x:Name="btnPrenota_0" Content="prenota" HorizontalAlignment="Left" Margin="223,442,0,0" VerticalAlignment="Top" Width="80" Height="48" Click="btnPrenota_Click"/>
-            <Label x:Name="lbl2" Content="0" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Height="40" Width="44" Background="White"/>
-            <Label x:Name="lbl1" Content="0" HorizontalAlignment="Left" Margin="10,238,0,0" VerticalAlignment="Top" Height="40" Width="44" Background="White"/>
-            <Label x:Name="lbl0" Content="0" HorizontalAlignment="Left" Margin="10,424,0,0" VerticalAlignment="Top" Height="40" Width="44" Background="White"/>
+            <Button x:Name="btnPrenota_2" Content="prenota" HorizontalAlignment="Left" Margin="242,284,0,0" VerticalAlignment="Top" Width="71" Height="26" Click="btnPrenota_Click"/>
+            <Button x:Name="btnPrenota_3" Content="prenota" HorizontalAlignment="Left" Margin="242,159,0,0" VerticalAlignment="Top" Width="71" Height="26" Click="btnPrenota_Click"/>
+            <Button x:Name="btnPrenota_4" Content="prenota" HorizontalAlignment="Left" Margin="242,42,0,0" VerticalAlignment="Top" Width="71" Height="26" Click="btnPrenota_Click"/>
+            <Button x:Name="btnPrenota_1" Content="prenota" HorizontalAlignment="Left" Margin="242,399,0,0" VerticalAlignment="Top" Width="71" Height="26" Click="btnPrenota_Click"/>
+            <Button x:Name="btnPrenota_0" Content="prenota" HorizontalAlignment="Left" Margin="242,502,0,0" VerticalAlignment="Top" Width="71" Height="26" Click="btnPrenota_Click"/>
+            <Label x:Name="lbl4" Content="0" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" Height="32" Width="35" Background="White"/>
+            <Label x:Name="lbl3" Content="0" HorizontalAlignment="Left" Margin="25,122,0,0" VerticalAlignment="Top" Height="32" Width="35" Background="White"/>
+            <Label x:Name="lbl2" Content="0" HorizontalAlignment="Left" Margin="25,248,0,0" VerticalAlignment="Top" Height="31" Width="35" Background="White"/>
+            <Label x:Name="lbl1" Content="0" HorizontalAlignment="Left" Margin="25,362,0,0" VerticalAlignment="Top" Height="32" Width="35" Background="White"/>
+            <Label x:Name="lbl0" Content="0" HorizontalAlignment="Left" Margin="25,478,0,0" VerticalAlignment="Top" Height="25" Width="35" Background="White"/>
+            <Button x:Name="btnAggiungiPersona_4" Content="Aggiungi persona" HorizontalAlignment="Left" Height="26" Margin="10,42,0,0" VerticalAlignment="Top" Width="104" Click="btnAggiungiPersona_Click"/>
+            <Button x:Name="btnAggiungiPersona_3" Content="Aggiungi persona" HorizontalAlignment="Left" Height="26" Margin="10,159,0,0" VerticalAlignment="Top" Width="104" Click="btnAggiungiPersona_Click"/>
+            <Button x:Name="btnAggiungiPersona_2" Content="Aggiungi persona" HorizontalAlignment="Left" Height="26" Margin="10,284,0,0" VerticalAlignment="Top" Width="104" Click="btnAggiungiPersona_Click"/>
+            <Button x:Name="btnAggiungiPersona_1" Content="Aggiungi persona" HorizontalAlignment="Left" Height="26" Margin="10,399,0,0" VerticalAlignment="Top" Width="104" Click="btnAggiungiPersona_Click"/>
+            <Button x:Name="btnAggiungiPersona_0" Content="Aggiungi persona" HorizontalAlignment="Left" Height="24" Margin="5,504,0,0" VerticalAlignment="Top" Width="109" Click="btnAggiungiPersona_Click"/>
         </Grid>
+        <Button x:Name="btnTastierino_0" Content="0" HorizontalAlignment="Left" Margin="604,214,0,0" VerticalAlignment="Top" Width="44" Height="36" Click="btnTastierino_Click"/>
+        <Button x:Name="btnTastierino_1" Content="1" HorizontalAlignment="Left" Margin="653,214,0,0" VerticalAlignment="Top" Width="44" Height="36" Click="btnTastierino_Click"/>
+        <Button x:Name="btnTastierino_2" Content="2" HorizontalAlignment="Left" Margin="604,255,0,0" VerticalAlignment="Top" Width="44" Height="36" Click="btnTastierino_Click"/>
+        <Button x:Name="btnTastierino_3" Content="3" HorizontalAlignment="Left" Margin="653,255,0,0" VerticalAlignment="Top" Width="44" Height="36" Click="btnTastierino_Click"/>
+        <Button x:Name="btnTastierino_4" Content="4" HorizontalAlignment="Left" Margin="604,296,0,0" VerticalAlignment="Top" Width="44" Height="36" Click="btnTastierino_Click"/>
 
     </Grid>
 </Window>
