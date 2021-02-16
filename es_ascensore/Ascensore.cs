@@ -43,6 +43,7 @@ namespace es_ascensore
         //public Queue<int> Fila { get; set; }
         public List<int> Fila { get; set; }
         private Semaphore _pool { get; set; }
+        private object x;
         public bool AspettaPrenotazione { get; private set; }
 
         public Ascensore(int maxPersone)
@@ -56,6 +57,7 @@ namespace es_ascensore
             _pool = new Semaphore(0, 1);
             _pool.Release(1);
             AspettaPrenotazione = false;
+            x = new object();
         }
 
         public Piano Vai()
@@ -76,7 +78,7 @@ namespace es_ascensore
         }
         public int Arrivato()
         {
-            Scendi(Piano);
+            Scendi();
             int salite = Sali();
             if(salite > 0)
             {
@@ -91,7 +93,7 @@ namespace es_ascensore
                 return true;
             return false;
         }
-        private void Scendi(int numPiano)
+        private void Scendi()
         {
             if(Persone > 0)
             {
@@ -122,6 +124,8 @@ namespace es_ascensore
                 Piani[Piano].NPersone--;
                 Persone++;
             }
+            if (pSalite > 0)
+                AspettaPrenotazione = true;
             return pSalite;
         }
         public void Prenota(int piano)
@@ -148,55 +152,74 @@ namespace es_ascensore
         }
         public int Pop()
         {
-            _pool.WaitOne();
-            int el = Fila[0];
-            Fila.RemoveAt(0);
-            _pool.Release(1);
+            //_pool.WaitOne();
+
+            int el;
+            lock (x)
+            {
+                el = Fila[0];
+                Fila.RemoveAt(0);            
+            }
             return el;
         }
 
         public void Add(int piano)
         {
-            _pool.WaitOne();
-            if(!Fila.Contains(piano))
+            //_pool.WaitOne();
+            lock(x)
             {
-                Fila.Add(piano);
+                if (!Fila.Contains(piano))
+                {
+                    Fila.Add(piano);
+                }
             }
-            _pool.Release(1);
+            
+            //_pool.Release(1);
         }
         public void PushFirst(int piano)
         {
-            _pool.WaitOne();
-            if(!Fila.Contains(piano))
+            //_pool.WaitOne();
+            lock(x)
             {
-                List<int> n = new List<int>();
-                n.Add(piano);
-                foreach(int i in Fila)
+                if (!Fila.Contains(piano))
                 {
-                    n.Add(i);
-                }
-                Fila.Clear();
-                foreach(int i in n)
-                {
-                    Fila.Add(i);
+                    List<int> n = new List<int>();
+                    n.Add(piano);
+                    foreach (int i in Fila)
+                    {
+                        n.Add(i);
+                    }
+                    Fila.Clear();
+                    foreach (int i in n)
+                    {
+                        Fila.Add(i);
+                    }
                 }
             }
-            _pool.Release(1);
+            //_pool.Release(1);
         }
         public int Count()
         {
-            _pool.WaitOne();
-            int num = Fila.Count;
-            _pool.Release(1);
+            //_pool.WaitOne();
+            int num;
+            lock(x)
+            {
+                num = Fila.Count;
+            }
+            //_pool.Release(1);
             return num;
         }
         public int Peek()
         {
             try
             {
-                _pool.WaitOne();
-                int p = Fila[0];
-                _pool.Release(1);
+                //_pool.WaitOne();
+                int p;
+                lock(x)
+                {
+                    p = Fila[0];
+                }
+                //_pool.Release(1);
                 return p;
             }
             catch ( Exception ex)

@@ -19,7 +19,7 @@
   <Class Name="es_ascensore.Ascensore">
     <Position X="3.25" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAIQAAIATBCEAAIEAAAUAAQDEECAAAAAIEAAAAAAAEA=</HashCode>
+      <HashCode>BAKQAAIATBCEAAIEAAAUAAQBEECAAAAAIEBAAAAAAEA=</HashCode>
       <FileName>Ascensore.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -35,6 +35,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>CreatorePersone.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="es_ascensore.Omino">
+    <Position X="7" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Omino.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="es_ascensore.IEquitableNPiano" Collapsed="true">

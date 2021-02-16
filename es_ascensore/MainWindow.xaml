@@ -30,12 +30,25 @@
             <Button x:Name="btnAggiungiPersona_2" Content="Aggiungi persona" HorizontalAlignment="Left" Height="26" Margin="10,284,0,0" VerticalAlignment="Top" Width="104" Click="btnAggiungiPersona_Click"/>
             <Button x:Name="btnAggiungiPersona_1" Content="Aggiungi persona" HorizontalAlignment="Left" Height="26" Margin="10,399,0,0" VerticalAlignment="Top" Width="104" Click="btnAggiungiPersona_Click"/>
             <Button x:Name="btnAggiungiPersona_0" Content="Aggiungi persona" HorizontalAlignment="Left" Height="24" Margin="5,504,0,0" VerticalAlignment="Top" Width="109" Click="btnAggiungiPersona_Click"/>
+            <Image x:Name="p_0" HorizontalAlignment="Left" Height="82" Margin="0,462,0,0" VerticalAlignment="Top" Width="34" Source="img/persona.png"/>
+            <Image x:Name="p_1" HorizontalAlignment="Left" Height="82" Margin="0,362,0,0" VerticalAlignment="Top" Width="34" Source="img/persona.png"/>
+            <Image x:Name="p_2" HorizontalAlignment="Left" Height="82" Margin="0,248,0,0" VerticalAlignment="Top" Width="34" Source="img/persona.png"/>
+            <Image x:Name="p_3" HorizontalAlignment="Left" Height="82" Margin="0,122,0,0" VerticalAlignment="Top" Width="34" Source="img/persona.png"/>
+            <Image x:Name="p_4" HorizontalAlignment="Left" Height="82" Margin="0,10,0,0" VerticalAlignment="Top" Width="34" Source="img/persona.png"/>
         </Grid>
         <Button x:Name="btnTastierino_0" Content="0" HorizontalAlignment="Left" Margin="604,214,0,0" VerticalAlignment="Top" Width="44" Height="36" Click="btnTastierino_Click"/>
         <Button x:Name="btnTastierino_1" Content="1" HorizontalAlignment="Left" Margin="653,214,0,0" VerticalAlignment="Top" Width="44" Height="36" Click="btnTastierino_Click"/>
         <Button x:Name="btnTastierino_2" Content="2" HorizontalAlignment="Left" Margin="604,255,0,0" VerticalAlignment="Top" Width="44" Height="36" Click="btnTastierino_Click"/>
         <Button x:Name="btnTastierino_3" Content="3" HorizontalAlignment="Left" Margin="653,255,0,0" VerticalAlignment="Top" Width="44" Height="36" Click="btnTastierino_Click"/>
         <Button x:Name="btnTastierino_4" Content="4" HorizontalAlignment="Left" Margin="604,296,0,0" VerticalAlignment="Top" Width="44" Height="36" Click="btnTastierino_Click"/>
+        <ListView x:Name="lstPiani" HorizontalAlignment="Left" Height="100" Margin="597,26,0,0" VerticalAlignment="Top" Width="100">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
 
     </Grid>
 </Window>
