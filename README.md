@@ -12,4 +12,7 @@ questa applicazione è stata sritta in c#, e simula il funzionamento di un ascen
 # concetti
    - OOP : è presente il diagramma delle classi
    - multithreading : questa applicazione viene eseguita su più thread nello stesso momento
-   - semafori : utilizza la classe Semaphore per gestire le sezioni critiche del progetto
+   - semafori : utilizza la tecnica dei semafori per gestire le sezioni critiche, utilizza il costrutto lock()
+
+# copyright
+tutte le immagini sono prese da pixabay (https://pixabay.com/), licenza : https://pixabay.com/it/service/terms/#license
