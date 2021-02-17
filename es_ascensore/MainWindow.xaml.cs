@@ -36,6 +36,11 @@ namespace es_ascensore
             o2 = new Omino(p_2.Margin, 50);
             o3 = new Omino(p_3.Margin, 50);
             o4 = new Omino(p_4.Margin, 50);
+            c0 = new OminoContrario(s0.Margin, 50);
+            c1 = new OminoContrario(s1.Margin, 50);
+            c2 = new OminoContrario(s2.Margin, 50);
+            c3 = new OminoContrario(s3.Margin, 50);
+            c4 = new OminoContrario(s4.Margin, 50);
         }
         Ascensore Ascensore;
         Piano Destinazione;
@@ -67,7 +72,7 @@ namespace es_ascensore
         {
             //devo capire se scende o se sale
             //TODO : Animazione
-            int pSalite;
+            int pSalite, pScese;
             Thickness t = new Thickness(0);
 
             this.Dispatcher.BeginInvoke(new Action(() =>
@@ -83,6 +88,7 @@ namespace es_ascensore
             m.Start();
             m.Join();
 
+            pScese = Ascensore.QuantiScendono();
             pSalite = Ascensore.Arrivato();
             bool cancellaOmino = true;
             if (Ascensore.Piani[Ascensore.Piano].NPersone > 0)
@@ -120,6 +126,30 @@ namespace es_ascensore
                             break;
                     }
                 }
+                if(pScese > 0)
+                {
+                    Thread tr = new Thread(new ThreadStart(Scendi0));
+                    switch (Ascensore.Piano)
+                    {
+                        case 0:
+                            tr = new Thread(new ThreadStart(Scendi0));
+                            break;
+                        case 1:
+                            tr = new Thread(new ThreadStart(Scendi1));
+                            break;
+                        case 2:
+                            tr = new Thread(new ThreadStart(Scendi2));
+                            break;
+                        case 3:
+                            tr = new Thread(new ThreadStart(Scendi3));
+                            break;
+                        case 4:
+                            tr = new Thread(new ThreadStart(Scendi4));
+                            break;
+                    }
+                    //MessageBox.Show("anima");
+                    tr.Start();
+                }
                 t = grdAscensore.Margin;
                 lbl4.Content = Ascensore.Piani[4].NPersone;
                 lbl3.Content = Ascensore.Piani[3].NPersone;
@@ -139,7 +169,7 @@ namespace es_ascensore
                 catch (Exception ex)
                 {
 
-                    MessageBox.Show("zeru tituli");
+                    MessageBox.Show("errore");
                 }
             }
 
@@ -148,6 +178,11 @@ namespace es_ascensore
         private double topCorrente;
         private double topDestinazione;
 
+        OminoContrario c0;
+        OminoContrario c1;
+        OminoContrario c2;
+        OminoContrario c3;
+        OminoContrario c4;
         private void AnimazioneAscensore()
         {
             double differenza = topDestinazione - topCorrente;
@@ -157,20 +192,21 @@ namespace es_ascensore
                 sale = false;
                 differenza *= -1; //la rendo positiva
             }
-            //MessageBox.Show("differenza = " + differenza + ", mossa = " + mossa);
+
             if (differenza > mossa)
             {
                 if (sale)
                     topCorrente += mossa;
                 else
                     topCorrente -= mossa;
+                Thread.Sleep(sleep);
                 this.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     //Thickness t = grdAscensore.Margin;
                     grdAscensore.Margin = new Thickness(434, topCorrente, 0, 0);
 
                 }));
-                Thread.Sleep(sleep);
+                
                 //MessageBox.Show("top corrente = " + topCorrente);
                 AnimazioneAscensore();
 
@@ -208,31 +244,31 @@ namespace es_ascensore
             switch (piano)
             {
                 case 0:
-                    p_0.Margin = new Thickness(0, p_0.Margin.Top, 0, 0);
+                    //p_0.Margin = new Thickness(0, p_0.Margin.Top, 0, 0);
                     p_0.Visibility = Visibility.Visible;
                     Thread t = new Thread(new ThreadStart(aggiungi0));
                     t.Start();
                     break;
                 case 1:
-                    p_1.Margin = new Thickness(0, p_1.Margin.Top, 0, 0);
+                    //p_1.Margin = new Thickness(0, p_1.Margin.Top, 0, 0);
                     p_1.Visibility = Visibility.Visible;
                     Thread t1 = new Thread(new ThreadStart(aggiungi1));
                     t1.Start();
                     break;
                 case 2:
-                    p_2.Margin = new Thickness(0, p_2.Margin.Top, 0, 0);
+                    //p_2.Margin = new Thickness(0, p_2.Margin.Top, 0, 0);
                     p_2.Visibility = Visibility.Visible;
                     Thread t2 = new Thread(new ThreadStart(aggiungi2));
                     t2.Start();
                     break;
                 case 3:
-                    p_3.Margin = new Thickness(0, p_3.Margin.Top, 0, 0);
+                    //p_3.Margin = new Thickness(0, p_3.Margin.Top, 0, 0);
                     p_3.Visibility = Visibility.Visible;
                     Thread t3 = new Thread(new ThreadStart(aggiungi3));
                     t3.Start();
                     break;
                 case 4:
-                    p_4.Margin = new Thickness(0, p_4.Margin.Top, 0, 0);
+                    //p_4.Margin = new Thickness(0, p_4.Margin.Top, 0, 0);
                     p_4.Visibility = Visibility.Visible;
                     Thread t4 = new Thread(new ThreadStart(aggiungi4));
                     t4.Start();
@@ -302,7 +338,7 @@ namespace es_ascensore
             {
                 this.Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    p_3.Margin = o1.Mossa();
+                    p_3.Margin = o3.Mossa();
                 }));
                 Thread.Sleep(50);
                 aggiungi3();
@@ -322,6 +358,126 @@ namespace es_ascensore
                 }));
                 Thread.Sleep(50);
                 aggiungi4();
+            }
+        }
+
+        private void Scendi0()
+        {
+            if(c0.MarginLeft <= 0)
+            {
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    s0.Visibility = Visibility.Hidden;
+                    s0.Margin = new Thickness(400, c0.MarginTop, 0, 0);
+                    c0 = new OminoContrario(s0.Margin, 50);
+                }));
+                
+            }
+            else
+            {
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    s0.Visibility = Visibility.Visible;
+                    s0.Margin = c0.Mossa();
+                }));
+                Thread.Sleep(50);
+                Scendi0();
+            }
+        }
+
+        private void Scendi4()
+        {
+            if (c4.MarginLeft <= 0)
+            {
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    s4.Visibility = Visibility.Hidden;
+                    s4.Margin = new Thickness(400, c4.MarginTop, 0, 0);
+                    c4 = new OminoContrario(s4.Margin, 50);
+                }));
+
+            }
+            else
+            {
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    s4.Visibility = Visibility.Visible;
+                    s4.Margin = c4.Mossa();
+                }));
+                Thread.Sleep(50);
+                Scendi4();
+            }
+        }
+
+        private void Scendi1()
+        {
+            if (c1.MarginLeft <= 0)
+            {
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    s1.Visibility = Visibility.Hidden;
+                    s1.Margin = new Thickness(400, c1.MarginTop, 0, 0);
+                    c1 = new OminoContrario(s1.Margin, 50);
+                }));
+
+            }
+            else
+            {
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    s1.Visibility = Visibility.Visible;
+                    s1.Margin = c1.Mossa();
+                }));
+                Thread.Sleep(50);
+                Scendi1();
+            }
+        }
+
+        private void Scendi2()
+        {
+            if (c2.MarginLeft <= 0)
+            {
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    s2.Visibility = Visibility.Hidden;
+                    s2.Margin = new Thickness(400, c2.MarginTop, 0, 0);
+                    c2 = new OminoContrario(s2.Margin, 50);
+                }));
+
+            }
+            else
+            {
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    s2.Visibility = Visibility.Visible;
+                    s2.Margin = c2.Mossa();
+                }));
+                Thread.Sleep(50);
+                Scendi2();
+            }
+        }
+
+        private void Scendi3()
+        {
+            if (c3.MarginLeft <= 0)
+            {
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    s3.Visibility = Visibility.Visible;
+                    s3.Visibility = Visibility.Hidden;
+                    s3.Margin = new Thickness(400, c3.MarginTop, 0, 0);
+                    c3 = new OminoContrario(s3.Margin, 50);
+                }));
+
+            }
+            else
+            {
+                this.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    s3.Margin = c3.Mossa();
+                }));
+                Thread.Sleep(50);
+                Scendi3();
             }
         }
 

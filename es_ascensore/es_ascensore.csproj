@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Omino.cs" />
+    <Compile Include="OminoContrario.cs" />
     <Compile Include="Persona.cs" />
     <Compile Include="Piano.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

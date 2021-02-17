@@ -37,11 +37,12 @@
       <FileName>CreatorePersone.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="es_ascensore.Omino">
-    <Position X="7" Y="5" Width="1.5" />
+  <Class Name="es_ascensore.OminoContrario">
+    <Position X="6.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Omino.cs</FileName>
+      <HashCode>CgAAAABAAIAAAAABACAAAAAACAAAAAAAAABICAAABAA=</HashCode>
+      <FileName>OminoContrario.cs</FileName>
+      <NewMemberFileName>Omino.cs</NewMemberFileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="es_ascensore.IEquitableNPiano" Collapsed="true">
