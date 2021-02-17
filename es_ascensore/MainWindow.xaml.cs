@@ -28,7 +28,7 @@ namespace es_ascensore
             muovi = new Thread(new ThreadStart(MuoviAscensore));
             mossa = 10;
             sleep = 100;
-            inMovimento = false;
+            
             x = new object();
 
             o0 = new Omino(p_0.Margin, 50);
@@ -47,7 +47,7 @@ namespace es_ascensore
         Thread muovi;
         private double mossa;
         private int sleep;
-        private bool inMovimento;
+        
         object x;
 
         
@@ -159,19 +159,32 @@ namespace es_ascensore
                 lblNumPersone.Content = Ascensore.Persone;
             }));
 
-            if (Ascensore.Count() > 0 && !Ascensore.AspettaPrenotazione)
+            while (true)
             {
-                try
+                MessageBox.Show(Ascensore.Count().ToString());
+                if (Ascensore.Count() > 0 && (!Ascensore.AspettaPrenotazione || Ascensore.Persone == 0))
                 {
-                    Destinazione = Ascensore.Vai();
-                    MuoviAscensore();
-                }
-                catch (Exception ex)
-                {
+                    try
+                    {
+                        string x = "";
+                        foreach (int n in Ascensore.Fila)
+                        {
+                            x += n + ", ";
+                        }
+                        MessageBox.Show(x);
+                        Destinazione = Ascensore.Vai();
+                        MuoviAscensore();
+                    }
+                    catch (Exception ex)
+                    {
 
-                    MessageBox.Show("errore");
+                        MessageBox.Show("errore");
+                    }
+
                 }
+                Thread.Sleep(20);
             }
+            
 
         }
 
@@ -497,19 +510,15 @@ namespace es_ascensore
         private void Muovi()
         {
             
-            lock(x)
+            if(!muovi.IsAlive)
             {
-                //MessageBox.Show(muovi.IsAlive.ToString());
-                if (!inMovimento && !muovi.IsAlive)
+                lock (x)
                 {
                     lstPiani.ItemsSource = Ascensore.Fila;
                     //il thread è fermo, lo faccio ripartire
                     Destinazione = Ascensore.Vai();
                     muovi = new Thread(new ThreadStart(MuoviAscensore));
                     muovi.Start();
-                    inMovimento = true;
-                    muovi.Join();
-                    inMovimento = false;
                 }
             }
         }
