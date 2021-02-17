@@ -60,7 +60,7 @@ namespace es_ascensore
             if(Ascensore.Piani[piano].NPersone > 0)
             {
                 Ascensore.Prenota(piano);
-                lstPiani.ItemsSource = Ascensore.Fila;
+                //lstPiani.ItemsSource = Ascensore.Fila;
                 if(!Ascensore.AspettaPrenotazione || Ascensore.Persone == 0)
                 {
                     Muovi();
@@ -161,7 +161,7 @@ namespace es_ascensore
 
             while (true)
             {
-                MessageBox.Show(Ascensore.Count().ToString());
+                //MessageBox.Show(Ascensore.Count().ToString());
                 if (Ascensore.Count() > 0 && (!Ascensore.AspettaPrenotazione || Ascensore.Persone == 0))
                 {
                     try
@@ -171,7 +171,7 @@ namespace es_ascensore
                         {
                             x += n + ", ";
                         }
-                        MessageBox.Show(x);
+                        //MessageBox.Show(x);
                         Destinazione = Ascensore.Vai();
                         MuoviAscensore();
                     }
@@ -501,7 +501,7 @@ namespace es_ascensore
                 Button b = (Button)sender;
                 int piano = int.Parse(b.Name.Split('_')[1]);
                 Ascensore.Tastierino(piano);
-                lstPiani.ItemsSource = Ascensore.Fila;
+                //lstPiani.ItemsSource = Ascensore.Fila;
                 //MessageBox.Show(Ascensore.Fila[0].ToString());
                 Muovi();
             }
@@ -514,7 +514,7 @@ namespace es_ascensore
             {
                 lock (x)
                 {
-                    lstPiani.ItemsSource = Ascensore.Fila;
+                    //lstPiani.ItemsSource = Ascensore.Fila;
                     //il thread è fermo, lo faccio ripartire
                     Destinazione = Ascensore.Vai();
                     muovi = new Thread(new ThreadStart(MuoviAscensore));
