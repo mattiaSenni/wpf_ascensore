@@ -44,7 +44,8 @@ namespace es_ascensore
         public List<int> Fila { get; set; }
         private Semaphore _pool { get; set; }
         private object x;
-        public bool AspettaPrenotazione { get; private set; }
+        //public bool AspettaPrenotazione { get; private set; }
+        public List<int> Prenotazioni { get; set; }//da tastierino
 
         public Ascensore(int maxPersone)
         {
@@ -56,8 +57,9 @@ namespace es_ascensore
             Fila = new List<int>();
             _pool = new Semaphore(0, 1);
             _pool.Release(1);
-            AspettaPrenotazione = false;
+            //AspettaPrenotazione = false;
             x = new object();
+            Prenotazioni = new List<int>();
         }
 
         public Piano Vai()
@@ -83,7 +85,7 @@ namespace es_ascensore
             if(salite > 0)
             {
                 //sono salite persone
-                AspettaPrenotazione = true;
+                //AspettaPrenotazione = true;
             }
             return salite;
         }
@@ -95,15 +97,16 @@ namespace es_ascensore
         }
         private void Scendi()
         {
-            if(Persone > 0)
+            if(Persone > 0 && Prenotazioni.Contains(Piano))
             {
                 Persone--;
+                Prenotazioni.Remove(Piano);
             }
                 
         }
         public int QuantiScendono()
         {
-            if (Persone > 0)
+            if (Persone > 0 && Prenotazioni.Contains(Piano))
                 return 1;
             else
                 return 0;
@@ -124,19 +127,23 @@ namespace es_ascensore
                 Piani[Piano].NPersone--;
                 Persone++;
             }
-            if (pSalite > 0)
-                AspettaPrenotazione = true;
+            //if (pSalite > 0)
+                //AspettaPrenotazione = true;
             return pSalite;
         }
         public void Prenota(int piano)
         {
             Add(piano);
-            AspettaPrenotazione = true;
+            //AspettaPrenotazione = true;
         }
         public void Tastierino(int piano)
         {
             PushFirst(piano);
-            AspettaPrenotazione = false;
+            //AspettaPrenotazione = false;
+            if(!Prenotazioni.Contains(piano))
+            {
+                Prenotazioni.Add(piano);
+            }
         }
 
         private Piano GetPiano(int n)

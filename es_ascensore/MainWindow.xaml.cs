@@ -24,7 +24,7 @@ namespace es_ascensore
         public MainWindow()
         {
             InitializeComponent();
-            Ascensore = new Ascensore(1);
+            Ascensore = new Ascensore(3);
             muovi = new Thread(new ThreadStart(MuoviAscensore));
             mossa = 10;
             sleep = 100;
@@ -61,7 +61,7 @@ namespace es_ascensore
             {
                 Ascensore.Prenota(piano);
                 //lstPiani.ItemsSource = Ascensore.Fila;
-                if(!Ascensore.AspettaPrenotazione || Ascensore.Persone == 0)
+                if(Ascensore.Persone == 0)
                 {
                     Muovi();
                 }
@@ -84,9 +84,10 @@ namespace es_ascensore
             topCorrente = t.Top;
             topDestinazione = Destinazione.MarginTop;
             //AnimazioneAscensore();
-            Thread m = new Thread(new ThreadStart(AnimazioneAscensore));
+            /*Thread m = new Thread(new ThreadStart(AnimazioneAscensore));
             m.Start();
-            m.Join();
+            m.Join();*/
+            AnimazioneAscensore();
 
             pScese = Ascensore.QuantiScendono();
             pSalite = Ascensore.Arrivato();
@@ -129,6 +130,7 @@ namespace es_ascensore
                 if(pScese > 0)
                 {
                     Thread tr = new Thread(new ThreadStart(Scendi0));
+                    
                     switch (Ascensore.Piano)
                     {
                         case 0:
@@ -159,10 +161,11 @@ namespace es_ascensore
                 lblNumPersone.Content = Ascensore.Persone;
             }));
 
+            Thread.Sleep(20);//per dare il tempo alla grafica di aggiornarsi
             while (true)
             {
                 //MessageBox.Show(Ascensore.Count().ToString());
-                if (Ascensore.Count() > 0 && (!Ascensore.AspettaPrenotazione || Ascensore.Persone == 0))
+                if (Ascensore.Count() > 0)
                 {
                     try
                     {
