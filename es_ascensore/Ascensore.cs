@@ -66,6 +66,7 @@ namespace es_ascensore
         {
             try
             {
+                
                 Piano toReturn = GetPiano(Peek());
                 Piano = Pop(); //sezione critica : il dequeue
                 

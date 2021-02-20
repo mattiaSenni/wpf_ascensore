@@ -478,8 +478,7 @@ namespace es_ascensore
             if (c3.MarginLeft <= 0)
             {
                 this.Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    s3.Visibility = Visibility.Visible;
+                {                    
                     s3.Visibility = Visibility.Hidden;
                     s3.Margin = new Thickness(400, c3.MarginTop, 0, 0);
                     c3 = new OminoContrario(s3.Margin, 50);
@@ -490,6 +489,7 @@ namespace es_ascensore
             {
                 this.Dispatcher.BeginInvoke(new Action(() =>
                 {
+                    s3.Visibility = Visibility.Visible;
                     s3.Margin = c3.Mossa();
                 }));
                 Thread.Sleep(50);
